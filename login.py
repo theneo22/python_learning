@@ -9,8 +9,8 @@ login: str
 password: str
 
 def get_login():
-    global text
-    global num
+    # global text
+    # global num
     global login
     global password
     login = input()
@@ -19,11 +19,13 @@ def get_login():
 
 def encrypt_text(tekst, num):
     global encrypted_text
-    for i in text:
-        new_char_int = (ord(i ) +int(num))
+    for i in tekst:
+        new_char_int = (ord(i) + int(num))
         if new_char_int > 127:
             new_char_int -= asci_size
-        encrypted_text =(chr(new_char_int))
+        encrypted_text += (chr(new_char_int))
+
+        # print(encrypted_text)
     return encrypted_text
 
 def read_file (file):
@@ -37,6 +39,14 @@ def read_file (file):
 def write_user_into_file(file_name, user, password):
     with open(file_name,'a+') as f:
         f.write("\n{}:{}".format(user,password))
+
+def switch_choise(arg):
+    switch = {
+        A: "",
+        L: "",
+        Q: "",
+    }
+    return switch.get(arg, "wrong chooise")
 
 if __name__ == '__main__':
 
@@ -54,10 +64,14 @@ if __name__ == '__main__':
         if x == login and y == password:
             account_found = True
     if account_found is True:
-        print("konto znaleziono")
-    else: print("konto nieznaleziono")
+        print("user already exists")
+    else:
+        write_user_into_file(file_name, login, encrypt_text(password, 2))
+        print("user added")
 
-    # write_user_into_file(file_name,login,password)
 
+
+
+    # print(encrypt_text("abcdefghj", 1))
 g = lambda x: x*2
 print(g(3))
