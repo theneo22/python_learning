@@ -15,8 +15,7 @@ def get_login():
     global password
     login = input()
     password = input()
-    #text = input()
-    #num = input()
+
 
 def encrypt_text(tekst, num):
     global encrypted_text
@@ -33,8 +32,11 @@ def read_file (file):
             line = line.strip()
             (key, val) = line.split(':')
             logins[(key)] = val
-
     f.close()
+
+def write_user_into_file(file_name, user, password):
+    with open(file_name,'a+') as f:
+        f.write("\n{}:{}".format(user,password))
 
 if __name__ == '__main__':
 
@@ -54,6 +56,8 @@ if __name__ == '__main__':
     if account_found is True:
         print("konto znaleziono")
     else: print("konto nieznaleziono")
+
+    # write_user_into_file(file_name,login,password)
 
 g = lambda x: x*2
 print(g(3))
