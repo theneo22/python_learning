@@ -37,14 +37,22 @@ def read_file (file):
     f.close()
 
 def write_user_into_file(file_name, user, password):
-    with open(file_name,'a+') as f:
-        f.write("\n{}:{}".format(user,password))
+    account_found = False
+    for x, y in logins.items():
+        if x == login:
+            account_found = True
+    if account_found is True:
+        print("user already exists")
+    else:
+        with open(file_name,'a+') as f:
+            f.write("\n{}:{}".format(user,password))
+            print("user added")
 
 def switch_choise(arg):
     switch = {
-        A: "",
-        L: "",
-        Q: "",
+        'A': write_user_into_file(file_name, login, encrypt_text(password, 2)),
+        'L': "",
+        'Q': "",
     }
     return switch.get(arg, "wrong chooise")
 
@@ -52,22 +60,25 @@ if __name__ == '__main__':
 
     # encrypt_text(text, num)
     # print(encrypted_text)
-
+    wybor = ""
     read_file(file_name)
-    get_login()
+    while True:
+        print("Choose answer")
+        wybor = input()
+        if wybor != "Q":
+            get_login()
+            switch_choise(wybor)
+        else:
+            break
+
+
+
+    # get_login()
 
     #print(logins)
     #print(login,password)
 
-    account_found = False
-    for x, y in logins.items():
-        if x == login and y == password:
-            account_found = True
-    if account_found is True:
-        print("user already exists")
-    else:
-        write_user_into_file(file_name, login, encrypt_text(password, 2))
-        print("user added")
+
 
 
 
